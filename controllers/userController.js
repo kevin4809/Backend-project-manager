@@ -1,4 +1,5 @@
 const { User } = require("../models/userModel");
+const { Task } = require("../controllers/taskController");
 
 const createUser = async (req, res) => {
   try {
@@ -21,7 +22,9 @@ const createUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   try {
-    const allUsers = await User.findAll();
+    const allUsers = await User.findAll({
+      include: [{ model: Task }],
+    });
 
     res.status(200).json({
       status: "success",
